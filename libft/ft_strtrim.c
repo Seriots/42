@@ -22,13 +22,14 @@ char    *ft_strtrim(char const *s1, char const *set)
 
     first = 0;
     last = ft_strlen(s1);
-    if (s1 == NULL || *s1 == 0)
+    if (s1 == NULL)
         return (0);
-    else if (set == 0 || *set == 0)
+    else if (set == 0)
         return ((char *)s1);
-    while (ft_ischarset(*(s1 + first), set))
+    while (ft_ischarset(*(s1 + first), set) && s1[first])
         first ++;
-    while (ft_ischarset(*(s1 + last - 1), set))
+    while (ft_ischarset(*(s1 + last - 1), set) && last > first)
         last --;
+    
     return (ft_substr(s1, first, last - first));
 }

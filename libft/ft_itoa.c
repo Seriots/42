@@ -20,6 +20,27 @@ static char *ft_switch(int n, char *result, int count)
     return (result);
 }
 
+static char *ft_put_int_min(void)
+{
+    char    *result;
+    result = (char *)malloc(sizeof(char) * 12);
+    if(!result)
+        return(0);
+    result[11] = 0;
+    result[0] = '-';
+    result[1] = '2';
+    result[2] = '1';
+    result[3] = '4';
+    result[4] = '7';
+    result[5] = '4';
+    result[6] = '8';
+    result[7] = '3';
+    result[8] = '6';
+    result[9] = '4';
+    result[10] = '8';
+    return (result);
+}
+
 char *ft_itoa(int n)
 {
     int minus;
@@ -28,8 +49,15 @@ char *ft_itoa(int n)
 
     minus = 0;
     count = 0;
+    if (n == 0)
+    {
+        result = malloc(sizeof(char) * (2));
+        result[0] = '0';
+        result[1] = 0;
+        return(result);
+    }
     if (n == -2147483648)
-        return("-2147483648");
+        return(ft_put_int_min());
     if (n < 0)
     {
         minus = 1;

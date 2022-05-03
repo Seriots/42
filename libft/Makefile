@@ -30,6 +30,8 @@ SRCS = 	ft_atoi.c \
 		ft_tolower.c \
 		ft_toupper.c \
 		ft_strlcat.c \
+		ft_strdup.c \
+		ft_strjoin.c
 
 BONUS = ft_lstadd_front.c \
 		ft_lstadd_back.c \

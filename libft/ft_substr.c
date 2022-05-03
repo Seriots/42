@@ -8,10 +8,11 @@ char *ft_substr(char const *s, unsigned int start, size_t len)
 
     i = -1;
     if (!s)
-        return (0);
-    if (start >= ft_strlen(s))
-        return (0);
-    size = ft_strlen(s) - start;
+        size = 0;
+    else if (start >= ft_strlen(s))
+        size = 0;
+    else
+        size = ft_strlen(s) - start;
     if (size > len)
         size = len;
     result = (char *)malloc(sizeof(char) * (size + 1));
