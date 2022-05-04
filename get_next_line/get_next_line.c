@@ -1,4 +1,5 @@
 #include "get_next_line.h"
+
 #include <stdio.h>
 #include <string.h>
 
@@ -47,15 +48,14 @@ char    *ft_read_recurse(int fd, char *prev_read, char *buf_tampon, int size)
     buf_tampon = ft_getline(buf_tampon, prev_read, ft_strlen(prev_read), size);
     readed = read(fd, prev_read, BUFFER_SIZE);
     position = ft_checkbuffer(prev_read);
-    if (readed == 0 && buf_tampon[0] == 0)    
+    if ((readed == 0 && buf_tampon[0] == 0) || readed == -1)    
     {
         free(buf_tampon);
         return (0);
     }
     else if (position != 0 || ft_strlen(prev_read) == 0)
         return (ft_getline(buf_tampon, prev_read, position, 1));
-    else
-        ft_read_recurse(fd, prev_read, buf_tampon, 1);
+    return (ft_read_recurse(fd, prev_read, buf_tampon, 1));
 }
 
 char    *get_next_line(int fd)
@@ -64,6 +64,8 @@ char    *get_next_line(int fd)
     char        *buf_tampon;
     int         position;
 
+	buf_tampon = malloc(1);
+	free(buf_tampon);
     position = ft_checkbuffer(prev_read);
     if (position != 0)
         return (ft_getline(buf_tampon, prev_read, position, 0));
@@ -71,13 +73,12 @@ char    *get_next_line(int fd)
         return (ft_read_recurse(fd, prev_read, buf_tampon, 0));
 }
 
-#include <fcntl.h>
+/*#include <fcntl.h>
 int main(int argc, char *argv[])
 {
     (void)argc;
     int fd = open(argv[1], O_RDONLY);
     char    *line;
-    char    test[10];
 
     printf("%d\n", BUFFER_SIZE);
     for (int i = 1; i <= 26; i++)
@@ -86,4 +87,4 @@ int main(int argc, char *argv[])
         printf("line %d = %s\n", i, line);
         free(line);
     }
-}
+}*/
