@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-size_t  ft_strlen(const char *s)
+size_t ft_strlen(const char *s)
 {
     size_t  i;
 
@@ -10,60 +10,60 @@ size_t  ft_strlen(const char *s)
     return (i);
 }
 
-char	*ft_strncat(char *dest, char *src, int nb)
+char *ft_strjoin(char *s1, char *s2)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (dest[i] != '\0')
-		i++;
-	j = 0;
-	while (src[j] != '\0' && j < nb)
-	{
-		dest[i] = src[j];
-		i++;
-		j++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-int     ft_strlcpy(char *dst, const char *src, int size)
-{
-    int i;
+    char    *result; 
+    size_t  s1_size;
+    size_t  s2_size;   
+    size_t  i;
+    size_t  j;
 
     i = 0;
-    if (!src)
+    j = 0;
+    if (s1 == 0)
+        s1_size = 0;
+    else
+        s1_size = ft_strlen(s1);
+    s2_size = ft_strlen(s2);
+    result = malloc(sizeof(char) * (s1_size + s2_size + 1));
+    if (!result)
         return (0);
-    if (size == 0)
-        return (ft_strlen(src));
-    while (i < size && src[i])
+    result[s1_size + s2_size] = 0;
+    while (s1_size && *(s1 + i))
     {
-        dst[i] = src[i];
-        i++;
+        result[i] = *(s1 + i);
+        i ++;
     }
-    dst[i] = 0;
-    return (ft_strlen(src));
+    while (*(s2 + j))
+    {
+        result[i + j] = *(s2 + j);
+        j ++;
+    }
+    free(s1);
+    return (result);
 }
 
-void    ft_bzero(void *s, size_t n)
+char *ft_strchr(const char *s, int c)
 {
-    size_t i;
+    int i;
+    char *ptr;
 
+    i = 0;
     if (!s)
-        return ;
-    i = -1;
-    while (++i < n)
-        *((unsigned char *)s + i) = 0;
-}
-
-void    ft_moveread(char *dest, const char *src)
-{
-    int  i;
-
-	i = -1;
-	while (src[++i])
-		dest[i] = src[i];
-    ft_bzero(dest + i, BUFFER_SIZE - i);
+        return (0);
+    while (*(s + i))
+    {
+        if ((*(s + i) == (char)c))
+        {
+            ptr = (char *)s + i;
+            return (ptr);
+        }
+        i ++;
+    }
+    if (*(s + i) == (char)c)
+    {
+        ptr = (char *)s + i;
+        return (ptr);
+    }
+    return (0);
 }

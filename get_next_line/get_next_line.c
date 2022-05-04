@@ -1,87 +1,118 @@
 #include "get_next_line.h"
+#include <stdio.h> 
 
-#include <stdio.h>
-#include <string.h>
-
-int ft_checkbuffer(char *buf)
+char *ft_cut_last_read(char *prev_read)
 {
     int i;
+    int j;
+    int size;
+    char   *next_line;
 
     i = 0;
-    while (buf[i])
+    while(prev_read[i] != '\n' && prev_read[i])
+        i++;
+    if (prev_read[i] == '\n')
+        i++;
+    if (prev_read[i] == 0)
     {
-        if (buf[i] == '\n')
-            return (i + 1);
-        i ++;
+        free(prev_read);
+        return (0);
     }
-    return (0);
+    size = ft_strlen(prev_read + i);
+    next_line = malloc(sizeof(char) * (size + 1));
+    if (!next_line)
+        return (0);
+    next_line[size] = 0;
+    j = -1;
+    while (++j < size)
+        next_line[j] = prev_read[i + j];
+    //printf("next = %s, prevread = %s\n", next_line, prev_read);
+    free(prev_read);
+    return (next_line);
 }
 
-char    *ft_getline(char *buffer, char *prev_read, int position, int buf_empty)
+char *ft_get_line(char *prev_read)
 {
     char    *line;
-    int     size;
+    int i;
+    int plus;
 
-    if (buf_empty != 0)
-        size = ft_strlen(buffer) + position + 1;
-    else
-        size = position + 1;
-    line = malloc(sizeof(char) * (size));
+    i = 0;
+    plus = 2;
+    while(prev_read[i] != '\n' && prev_read[i])
+        i++;
+    if (prev_read[i] == 0)
+        plus -= 1;
+    line = malloc(sizeof(char) * (i + plus));
     if (!line)
         return (0);
-    ft_bzero(line, size);
-    if (buf_empty != 0)
-    {
-        line = ft_strncat(line, buffer, ft_strlen(buffer) + 1);
-        free(buffer);
-    }
-    line = ft_strncat(line, prev_read, position);
-    ft_moveread(prev_read, prev_read + position);
+    line[i + plus - 1] = 0;
+    i = -1;
+    while (prev_read[++i] != '\n' && prev_read[i])
+        line[i] = prev_read[i];
+    if (prev_read[i] == '\n')
+        line[i] = prev_read[i];
+    //printf("linea = %s, prevread = %s\n", line, prev_read);
     return (line);
 }
 
-char    *ft_read_recurse(int fd, char *prev_read, char *buf_tampon, int size)
+char *ft_read(int fd, char *prev_read)
 {
-    int position;
-    int readed;
+    char    *buf_tampon;
+    char    *next_read;
+    int     readed;
 
-    buf_tampon = ft_getline(buf_tampon, prev_read, ft_strlen(prev_read), size);
-    readed = read(fd, prev_read, BUFFER_SIZE);
-    position = ft_checkbuffer(prev_read);
-    if ((readed == 0 && buf_tampon[0] == 0) || readed == -1)    
-    {
-        free(buf_tampon);
+    buf_tampon = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+    if (!buf_tampon)
         return (0);
+    readed = 1;
+    while (!(ft_strchr(prev_read, '\n')) && readed != 0)
+    {
+        readed = read(fd, buf_tampon, BUFFER_SIZE);
+        if (readed == -1)
+        {
+            free(buf_tampon);
+            return (0);
+        }
+        buf_tampon[readed] = 0;
+        prev_read = ft_strjoin(prev_read, buf_tampon);
     }
-    else if (position != 0 || ft_strlen(prev_read) == 0)
-        return (ft_getline(buf_tampon, prev_read, position, 1));
-    return (ft_read_recurse(fd, prev_read, buf_tampon, 1));
+    free(buf_tampon);
+    return (prev_read);
 }
 
 char    *get_next_line(int fd)
 {
-    static char prev_read[BUFFER_SIZE + 1];
-    char        *buf_tampon;
-    int         position;
+    static char *prev_read;
+    char        *result;
 
-	buf_tampon = malloc(1);
-	free(buf_tampon);
-    position = ft_checkbuffer(prev_read);
-    if (position != 0)
-        return (ft_getline(buf_tampon, prev_read, position, 0));
-    else
-        return (ft_read_recurse(fd, prev_read, buf_tampon, 0));
+    if (fd < 0|| BUFFER_SIZE < 0)
+        return (0);
+    prev_read = ft_read(fd, prev_read);
+    if (prev_read == 0)
+        return (0);
+    //printf("prev_read = %s\n", prev_read);
+    result = ft_get_line(prev_read);
+    if(result[0] == 0)
+    {
+        free(result);
+        return (0);
+    }
+    prev_read = ft_cut_last_read(prev_read);
+    return (result);
 }
 
 /*#include <fcntl.h>
+
 int main(int argc, char *argv[])
 {
     (void)argc;
     int fd = open(argv[1], O_RDONLY);
     char    *line;
 
+
     printf("%d\n", BUFFER_SIZE);
-    for (int i = 1; i <= 26; i++)
+    for (int i = 1; i <= 25; i++)
     {
         line = get_next_line(fd);
         printf("line %d = %s\n", i, line);
