@@ -1,74 +1,70 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/03 10:29:41 by lgiband           #+#    #+#             */
+/*   Updated: 2022/05/04 08:38:03 by lgiband          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int ft_nb_size(int n, int count)
+static int	ft_countchar(int n)
 {
-    while (n > 0)
-    {
-        n = n / 10;
-        count ++;
-    }
-    return (count);
+	int	count;
+
+	count = 1;
+	while (n > 9 || n < -9)
+	{
+		count ++;
+		n = n / 10;
+	}
+	return (count);
 }
 
-static char *ft_switch(int n, char *result, int count)
+static int	ft_abs(int n)
 {
-    while (n > 0)
-    {
-        result[--count] = n % 10 + 48;
-        n = n / 10;
-    }
-    return (result);
+	if (n >= 0)
+		return (n);
+	else
+		return (-n);
 }
 
-static char *ft_put_int_min(void)
+static void	ft_calcul(int n, int i, char *result)
 {
-    char    *result;
-    result = (char *)malloc(sizeof(char) * 12);
-    if(!result)
-        return(0);
-    result[11] = 0;
-    result[0] = '-';
-    result[1] = '2';
-    result[2] = '1';
-    result[3] = '4';
-    result[4] = '7';
-    result[5] = '4';
-    result[6] = '8';
-    result[7] = '3';
-    result[8] = '6';
-    result[9] = '4';
-    result[10] = '8';
-    return (result);
+	while (n > 9 || n < -9)
+	{
+		result[i] = (char)((ft_abs(n % 10)) + 48);
+		n = n / 10;
+		i --;
+	}
+	result[i] = (char)(ft_abs(n) + 48);
 }
 
-char *ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-    int minus;
-    char *result;
-    int count;
+	char	*result;
+	int		count;
+	int		i;
 
-    minus = 0;
-    count = 0;
-    if (n == 0)
-    {
-        result = malloc(sizeof(char) * (2));
-        result[0] = '0';
-        result[1] = 0;
-        return(result);
-    }
-    if (n == -2147483648)
-        return(ft_put_int_min());
-    if (n < 0)
-    {
-        minus = 1;
-        n *= -1;
-    }
-    count = ft_nb_size(n, 0) + minus;
-    result = (char *)malloc(sizeof(char) * (count + 1));
-    if (!result)
-        return (0);
-    if (minus == 1)
-        result[0] = '-';
-    result[count] = 0;
-    return (ft_switch(n, result, count));
+	count = ft_countchar(n);
+	if (n < 0)
+		count ++;
+	i = count - 1;
+	result = (char *)malloc(sizeof(char) * (count + 1));
+	if (!result)
+		return (0);
+	result[count] = 0;
+	if (n < 0)
+		result[0] = '-';
+	if (n == -2147483648)
+	{
+		result[i--] = '8';
+		n = n / 10;
+	}
+	ft_calcul(n, i, result);
+	return (result);
 }
