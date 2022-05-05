@@ -1,4 +1,16 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 08:41:17 by lgiband           #+#    #+#             */
+/*   Updated: 2022/05/04 08:43:37 by lgiband          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*#include "libft.h"*/
 
 /*main ft_memset*/
 /*int main(void)
@@ -32,15 +44,18 @@
 /*#include <stdio.h>
 int main(int argc, char *argv[])
 {
-    int result = ft_memcmp((const void *)argv[1], (const void *)argv[2], ft_atoi(argv[3]));
-    int result2 = memcmp((const void *)argv[1], (const void *)argv[2], ft_atoi(argv[3]));
+    int result = ft_memcmp((const void *)argv[1], 
+	(const void *)argv[2], ft_atoi(argv[3]));
+    int result2 = memcmp((const void *)argv[1], 
+	(const void *)argv[2], ft_atoi(argv[3]));
     printf("%d %d\n", result, result2);
 }*/
 
 /*main ft_substr*/
 /*int main(int argc, char *argv[])
 {
-    char *s = ft_substr(argv[1], (unsigned int)ft_atoi(argv[2]), ft_atoi(argv[3]));
+    char *s = ft_substr(argv[1], (unsigned int)ft_atoi(argv[2]), 
+	ft_atoi(argv[3]));
     printf("%s\n", s);
 }*/
 
@@ -87,15 +102,18 @@ int main(int argc, char *argv[])
 /*main ft_strchr*/
 /*int main(int argc, char *argv[])
 {
-    printf("%s %s\n", strchr(argv[2] ,argv[1][0]), ft_strchr(argv[2], argv[1][0]));
-    printf("%s %s\n", strrchr(argv[2] ,argv[1][0]), ft_strrchr(argv[2], argv[1][0]));
+    printf("%s %s\n", strchr(argv[2] ,argv[1][0]), 
+	ft_strchr(argv[2], argv[1][0]));
+    printf("%s %s\n", strrchr(argv[2] ,argv[1][0]), 
+	ft_strrchr(argv[2], argv[1][0]));
 }*/
 /* end main ft_strchr*/
 
 /*main ft_strncmp*/
 /*int main(int argc, char *argv[])
 {
-    printf("%d %d\n", strncmp(argv[1] ,argv[2], 5), ft_strncmp(argv[1], argv[2], 5));
+    printf("%d %d\n", strncmp(argv[1] ,argv[2], 5), 
+	ft_strncmp(argv[1], argv[2], 5));
 }*/
 /* end main ft_strncmp*/
 
@@ -169,14 +187,14 @@ int main(int argc, char *argv[])
 }*/
 
 /*ft_lst all*/
-/*static void *ft_f(void *content)
+/*static void *f(void *content)
 {
     char *cont = (char *)content;
     cont = "abc";
     return((void *)cont);
-}
+}*/
 
-static void    ft_lstprint(t_list *lst)
+/*static void    ft_lstprint(t_list *lst)
 {
     if (!lst)
         return ;
@@ -190,41 +208,4 @@ static void    ft_lstprint(t_list *lst)
 static void ft_lstdel(void *elem)
 {
     printf("del");
-}
-
-int main(int argc, char *argv[])
-{
-    char *s = "ou";
-    char *s2 = "non";
-    char *s3 = "ok";
-    char *s4 = "bof";
-    char *s5 = "truc";
-    char *s6 = "enorme";
-    t_list *lst;
-    t_list *lst2;
-    t_list *lst3;
-    t_list *lst4;
-    t_list *lst5;
-    t_list *lst6;
-    t_list *test;
-    lst = ft_lstnew((void *)s);
-    lst2 = ft_lstnew((void *)s2);
-    lst3 = ft_lstnew((void *)s3);
-    lst4 = ft_lstnew((void *)s4);
-    lst5= ft_lstnew((void *)s5);
-    lst6 = ft_lstnew((void *)s6);
-    printf("now = %p, content = %s, next = %p\n", lst, (char *)lst->content, lst->next);
-    ft_lstadd_front(&lst, lst2);  
-    ft_lstadd_front(&lst, lst3);  
-    ft_lstadd_front(&lst, lst4);  
-    ft_lstadd_front(&lst, lst5);    
-    ft_lstadd_back(&lst, lst6);    
-    printf("now = %p, content = %s, next = %p\n", lst, (char *)lst->content, lst->next);
-    //ft_lstprint(lst);
-    printf("%d\n", ft_lstsize(lst));
-    //ft_lstprint(ft_lstlast(lst));
-    //ft_lstclear(&lst, ft_lstdel);
-    //ft_lstprint(lst);
-    test = ft_lstmap(lst, ft_f, ft_lstdel);
-    ft_lstprint(test);
 }*/

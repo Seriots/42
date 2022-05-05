@@ -6,7 +6,7 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 10:30:51 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/03 11:51:24 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/04 12:29:43 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char	**ft_split(char const *s, char c)
 	char	**result;
 	int		pos[1];
 
+	if (!s)
+		return (0);
 	i = 0;
 	pos[0] = 0;
 	nb_word = ft_count_word(s, c);

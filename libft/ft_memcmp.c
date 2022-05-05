@@ -6,7 +6,7 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 10:30:23 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/03 11:47:19 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/04 12:48:42 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	unsigned char	*str1;
 	unsigned char	*str2;
-	int				i;
+	size_t			i;
 
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;
@@ -25,5 +25,5 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 		return (0);
 	while (i < n - 1 && *(str1 + i) == *(str2 + i))
 		i ++;
-	return ((int)(*(str1 + i) - *(str2 + i)));
+	return (*(str1 + i) - *(str2 + i));
 }

@@ -6,7 +6,7 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:47:19 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/03 10:23:48 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/04 12:46:21 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@ int	ft_atoi(const char *nptr)
 	i = 0;
 	result = 0;
 	minus = 1;
-	if (nptr == 0)
-		return (0);
 	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
 		i ++;
 	if (nptr[i] == '-' || nptr[i] == '+')
 	{
 		if (nptr[i] == '-')
 			minus *= -1;
-			i++;
+		i++;
 	}
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{

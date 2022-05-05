@@ -6,7 +6,7 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 10:29:52 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/03 11:40:12 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/04 12:19:02 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*ptr;
-	t_list	*next;
 
-	if (!lst || !del)
+	if (!lst && !del)
 		return ;
 	ptr = *lst;
 	while (*lst)

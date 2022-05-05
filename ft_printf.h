@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 10:31:48 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/04 12:23:02 by lgiband          ###   ########.fr       */
+/*   Created: 2022/05/05 10:24:27 by lgiband           #+#    #+#             */
+/*   Updated: 2022/05/05 13:58:18 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+#include <stdarg.h>
+#define FLAG_BASE "0 +-#"
 
-char	*ft_strnstr(const char	*big, const char *little, size_t len)
+typedef	struct s_arg
 {
-	size_t	i;
-	size_t	j;
+	int	flags;
+	int	min_champs;
+	int	attribut;
+} t_arg;
 
-	if (!little[0])
-		return ((char *)big);
-	i = 0;
-	while (big[i] && i < len)
-	{
-		j = 0;
-		while (big[i + j] && little[j] && i + j < len
-			&& big[i + j] == little[j])
-			j++;
-		if (!little[j])
-			return ((char *)(big + i));
-		i ++;
-	}
-	return (NULL);
-}
+int ft_printf(const char *, ...);
+# endif

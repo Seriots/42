@@ -6,7 +6,7 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 10:30:18 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/03 11:46:53 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/04 12:14:25 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	unsigned char	*str;
-	int				i;
+	size_t			i;
 
 	str = (unsigned char *)s;
 	c = (unsigned char)c;

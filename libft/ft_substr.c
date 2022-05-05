@@ -6,7 +6,7 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 10:32:06 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/03 12:09:49 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/04 12:47:13 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	size;
 	char	*result;
-	int		i;
+	size_t	i;
 
 	i = -1;
 	if (!s)
