@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 09:24:04 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/09 17:01:28 by lgiband          ###   ########.fr       */
+/*   Created: 2022/05/04 15:46:23 by lgiband           #+#    #+#             */
+/*   Updated: 2022/05/09 16:26:21 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_cut_last_read(char *prev_read)
 {
@@ -79,8 +79,8 @@ char	*ft_read(int fd, char *prev_read)
 		readed = read(fd, buf_tampon, BUFFER_SIZE);
 		if (readed == -1)
 		{
-			free(buf_tampon);
 			free(prev_read);
+			free(buf_tampon);
 			return (0);
 		}
 		buf_tampon[readed] = 0;
@@ -93,8 +93,8 @@ char	*ft_read(int fd, char *prev_read)
 char	*ft_copy(char *src)
 {
 	int		size;
-	char	*dest;
 	int		i;
+	char	*dest;
 
 	i = 0;
 	if (!src)
@@ -114,13 +114,13 @@ char	*ft_copy(char *src)
 
 char	*get_next_line(int fd)
 {
-	static char	save[BUFFER_SIZE + 1];
+	static char	save[1024][BUFFER_SIZE + 1];
 	char		*prev_read;
 	char		*result;
 
 	if (fd < 0 || BUFFER_SIZE < 0 || fd > 1023)
 		return (0);
-	prev_read = ft_copy(save);
+	prev_read = ft_copy(save[fd]);
 	prev_read = ft_read(fd, prev_read);
 	if (prev_read == 0)
 		return (0);
@@ -131,7 +131,7 @@ char	*get_next_line(int fd)
 		return (0);
 	}
 	prev_read = ft_cut_last_read(prev_read);
-	ft_copy2(save, prev_read);
+	ft_copy2(save[fd], prev_read);
 	free(prev_read);
 	return (result);
 }
